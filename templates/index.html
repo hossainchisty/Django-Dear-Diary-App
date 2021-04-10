@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% extends '_base.html' %}
+{% load static %}
+{% block body %}    
+    <div class="container pt-5 mt-6">
+        <form method="post">
+            {% csrf_token %}
+            <div class="control">
+                <input class="input is-primary is-focused is-medium" name="editordata" type="text"
+                    placeholder="Taka a note...">
+            </div>
+
+            <span>
+                <button class="button is-link mt-4" type="submit">
+                    <span class="icon is-small">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span>Save</span>
+                </button>
+            </span>
+
+        </form>
+
+
+    </div>
+
+    <div class="container pt-6 mt-5">
+        <div class="d-grid gap-2 d-md-block mr-4 p-5 shadow">
+
+
+            {% for post in diary_post %}
+            <h1 class="title">
+                {{ post.text }}
+            </h1>
+
+            <h2 class="subtitle is-italic">
+                Created at {{ post.data_created }}
+            </h2>
+
+            <a href="{% url 'update_diary' post.id %}" class="button is-primary" role="button" aria-pressed="true">Edit</a>
+            <a href="{% url 'delete_diary' post.id %}" class="button is-danger" role="button" aria-pressed="true">Delete</a>
+            <br>
+            <!-- If objet_list is empty  -->
+            {% empty %}
+            <h2>Diary object is empty.</h2>
+            {% endfor %}
+
+        </div>
+
+        <!-- pagenation start -->
+        <div class="container pt-6 mt-6">
+            <nav class="pagination" role="navigation" aria-label="pagination">
+                <a class="pagination-previous" title="This is the first page">Previous</a>
+                <a class="pagination-next">Next page</a>
+                <ul class="pagination-list">
+                    <li>
+                        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+                    </li>
+                    <li>
+                        <a class="pagination-link" aria-label="Goto page 2">2</a>
+                    </li>
+                    <li>
+                        <a class="pagination-link" aria-label="Goto page 3">3</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- pagenation end -->
+    </div>
+{% endblock body %}

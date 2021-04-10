@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends '_base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container pt-5 mt-6">
+        <form method="post">
+        {% csrf_token %}
+        <p class="subtitle">Are you sure you want to delete <strong>{{ object }}</strong> ?</p>
+            
+        <a href="{% url 'home'%}" class="button is-primary" role="button" aria-pressed="true">Cancel</a>
+        <input type="submit" value="Confirm" class="button is-danger">
+        </form>
+</div>
+
+{% endblock body %}
